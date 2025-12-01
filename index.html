@@ -8,375 +8,355 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
-    
-    body {
-        background: #0a0a0a;
-        color: #e0e0e0;
-        font-family: 'Arial', 'Helvetica', sans-serif;
-        margin: 0;
-        position: relative;
-        overflow-x: hidden;
-    }
-    
-    /* Comic book halftone effect */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.3) 2px,
-                rgba(0, 0, 0, 0.3) 4px
-            );
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.15;
-    }
+/* =========================
+ GLOBAL BASE STYLES
+========================= */
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0a0a;
+    color: #e0e0e0;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Comic book halftone effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.3) 2px,
+        rgba(0, 0, 0, 0.3) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.15;
+}
+
+/* =========================
+ SIDEBAR
+========================= */
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, #1a0000 0%, #0a0a0a 100%);
+    border-right: 4px solid #d32f2f;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: inset -4px 0 8px rgba(211, 47, 47, 0.3),
+                4px 0 20px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+
+.sidebar::before {
+    content: 'DMC';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+    letter-spacing: -10px;
+}
+
+.sidebar h3 {
+    color: #ff5252;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    text-shadow: 
+        2px 2px 0 #000,
+        0 0 10px rgba(255, 82, 82, 0.7);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.sidebar h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff5252, transparent);
+}
+
+/* =========================
+ ACCORDION / MENU BUTTONS
+========================= */
+
+.accordion-button {
+    background: linear-gradient(135deg, #2d0000 0%, #1a0000 100%);
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+    border: 2px solid #5a0000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.accordion-button:hover,
+.accordion-button:focus {
+    background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    border-color: #ff5252;
+    transform: translateX(5px);
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
+    border-color: #ff5252;
+}
+
+.accordion-body a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #e0e0e0;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-bottom: 4px;
+    border-left: 3px solid transparent;
+    font-size: 0.9rem;
+}
+
+.accordion-body a:hover {
+    background: rgba(211, 47, 47, 0.2);
+    color: #ff5252;
+    border-left-color: #ff5252;
+    transform: translateX(5px);
+}
+
+/* =========================
+ MAIN CONTENT AREA
+========================= */
+
+.main-content {
+    margin-left: 280px;
+    padding: 40px;
+    position: relative;
+    z-index: 5;
+}
+
+.main-content::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(211, 47, 47, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Dashboard Title */
+.main-content h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 
+        3px 3px 0 #d32f2f,
+        6px 6px 0 #8b0000,
+        0 0 20px rgba(211, 47, 47, 0.5);
+    position: relative;
+    display: inline-block;
+}
+
+.main-content h1::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 3px solid #d32f2f;
+    transform: skew(-2deg);
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.main-content p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #b0b0b0;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+/* =========================
+ CARD MODULES
+========================= */
+
+.card-box {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 3px solid #d32f2f;
+    border-radius: 8px;
+    padding: 25px;
+    color: #e0e0e0;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(211, 47, 47, 0.2);
+    transition: all 0.3s;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-box:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 8px 20px rgba(211, 47, 47, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 30px rgba(211, 47, 47, 0.3);
+    border-color: #ff5252;
+}
+
+.card-box h3 {
+    color: #ff5252;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    margin-bottom: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 
+        2px 2px 0 #000,
+        0 0 10px rgba(255, 82, 82, 0.5);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.card-box h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #ff5252;
+}
+
+.card-box p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #b0b0b0;
+}
+
+/* =========================
+ COMIC BUBBLES
+========================= */
+
+.bubble {
+    background: #ffffff;
+    color: #000;
+    padding: 15px 20px;
+    border-radius: 20px;
+    border: 3px solid #000;
+    position: relative;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 20px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #000;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 33px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #ffffff;
+}
+
+/* =========================
+ RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
     .sidebar {
-        width: 280px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: linear-gradient(180deg, #1a0000 0%, #0a0a0a 100%);
-        border-right: 4px solid #d32f2f;
-        padding: 20px;
-        overflow-y: auto;
-        box-shadow: 
-            inset -4px 0 8px rgba(211, 47, 47, 0.3),
-            4px 0 20px rgba(0, 0, 0, 0.8);
-        z-index: 10;
-    }
-    
-    .sidebar::before {
-        content: 'DMC';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-15deg);
-        font-size: 120px;
-        font-weight: 900;
-        color: rgba(255, 255, 255, 0.02);
-        pointer-events: none;
-        letter-spacing: -10px;
-    }
-    
-    .sidebar h3 {
-        color: #ff5252;
-        font-weight: 900;
-        letter-spacing: 3px;
-        margin-bottom: 25px;
-        text-transform: uppercase;
-        font-size: 1.4rem;
-        text-shadow: 
-            2px 2px 0 #000,
-            0 0 10px rgba(255, 82, 82, 0.7);
-        position: relative;
-        padding-bottom: 10px;
-        z-index: 2;
-    }
-    
-    .sidebar h3::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(90deg, #ff5252, transparent);
-    }
-
-    .accordion-button {
-        background: linear-gradient(135deg, #2d0000 0%, #1a0000 100%);
-        color: #ffffff;
-        font-weight: 700;
-        border-radius: 4px;
-        margin-bottom: 8px;
-        transition: all 0.3s;
-        border: 2px solid #5a0000;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.85rem;
-        box-shadow: 
-            0 2px 4px rgba(0, 0, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        position: relative;
-        z-index: 2;
-    }
-    
-    .accordion-button::after {
-        filter: brightness(2);
-    }
-
-    .accordion-button:hover, .accordion-button:focus {
-        background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
-        color: #ffffff;
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-        border-color: #ff5252;
-        transform: translateX(5px);
-        box-shadow: 
-            0 4px 8px rgba(211, 47, 47, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    
-    .accordion-button:not(.collapsed) {
-        background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
-        border-color: #ff5252;
-    }
-
-    .accordion-body a {
-        display: block;
-        padding: 10px 15px;
-        text-decoration: none;
-        color: #e0e0e0;
-        border-radius: 4px;
-        transition: all 0.2s;
-        margin-bottom: 4px;
-        border-left: 3px solid transparent;
-        font-size: 0.9rem;
-        position: relative;
-        z-index: 2;
-    }
-
-    .accordion-body a:hover {
-        background: rgba(211, 47, 47, 0.2);
-        color: #ff5252;
-        border-left-color: #ff5252;
-        transform: translateX(5px);
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 4px solid #d32f2f;
     }
 
     .main-content {
-        margin-left: 280px;
-        padding: 40px;
-        position: relative;
-        z-index: 2;
+        margin-left: 0;
+        padding: 25px 20px;
     }
-    
-    .main-content::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(circle, rgba(211, 47, 47, 0.1) 0%, transparent 70%);
-        pointer-events: none;
-    }
+}
 
-    .main-content h1 {
-        font-size: clamp(2rem, 6vw, 3.5rem);
-        color: #ffffff;
-        margin-bottom: 10px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        text-shadow: 
-            3px 3px 0 #d32f2f,
-            6px 6px 0 #8b0000,
-            0 0 20px rgba(211, 47, 47, 0.5);
-        position: relative;
-        display: inline-block;
-    }
-    
-    .main-content h1::before {
-        content: '';
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-        border: 3px solid #d32f2f;
-        transform: skew(-2deg);
-        z-index: -1;
-        opacity: 0.3;
-    }
-
-    .main-content p {
-        font-size: clamp(1rem, 2.5vw, 1.2rem);
-        color: #b0b0b0;
-        margin-bottom: 30px;
-        font-style: italic;
-    }
-
-    .card-box {
-        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-        border: 3px solid #d32f2f;
-        border-radius: 8px;
-        padding: 25px;
-        color: #e0e0e0;
-        box-shadow: 
-            0 4px 12px rgba(0, 0, 0, 0.6),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1),
-            0 0 20px rgba(211, 47, 47, 0.2);
-        transition: all 0.3s;
-        margin-bottom: 20px;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .card-box::before {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: linear-gradient(45deg, #d32f2f, #8b0000, #d32f2f);
-        z-index: -1;
-        border-radius: 8px;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-    
-    .card-box::after {
-        content: '';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 100px;
-        height: 100px;
-        background: radial-gradient(circle, rgba(211, 47, 47, 0.1) 0%, transparent 70%);
-        pointer-events: none;
-    }
-
-    .card-box:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 
-            0 8px 20px rgba(211, 47, 47, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2),
-            0 0 30px rgba(211, 47, 47, 0.3);
-        border-color: #ff5252;
-    }
-    
-    .card-box:hover::before {
-        opacity: 0.3;
-    }
-
-    .card-box h3 {
-        color: #ff5252;
-        font-size: clamp(1.2rem, 3vw, 1.6rem);
-        margin-bottom: 15px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        text-shadow: 
-            2px 2px 0 #000,
-            0 0 10px rgba(255, 82, 82, 0.5);
-        position: relative;
-        padding-bottom: 10px;
-    }
-    
-    .card-box h3::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 40px;
-        height: 3px;
-        background: #ff5252;
-    }
-    
-    .card-box p {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #b0b0b0;
-        margin: 0;
-    }
-    
-    /* Comic speech bubble style */
-    .bubble {
-        background: #ffffff;
-        color: #000;
-        padding: 15px 20px;
-        border-radius: 20px;
-        border: 3px solid #000;
-        position: relative;
-        font-weight: 700;
-        display: inline-block;
-        margin-top: 20px;
-        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
-    }
-    
-    .bubble::before {
-        content: '';
-        position: absolute;
-        bottom: -15px;
-        left: 30px;
-        width: 0;
-        height: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        border-top: 15px solid #000;
-    }
-    
-    .bubble::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 33px;
-        width: 0;
-        height: 0;
-        border-left: 12px solid transparent;
-        border-right: 12px solid transparent;
-        border-top: 12px solid #ffffff;
-    }
-
-    @media (max-width: 992px) {
-        .sidebar {
-            position: relative;
-            width: 100%;
-            height: auto;
-            border-right: none;
-            border-bottom: 4px solid #d32f2f;
-            padding: 15px;
-        }
-
-        .main-content {
-            margin-left: 0;
-            padding: 25px 20px;
-        }
-        
-        .main-content h1 {
-            font-size: clamp(1.8rem, 8vw, 2.5rem);
-        }
-    }
-    
-    /* Custom scrollbar */
-    .sidebar::-webkit-scrollbar {
-        width: 8px;
-    }
-    
-    .sidebar::-webkit-scrollbar-track {
-        background: #0a0a0a;
-    }
-    
-    .sidebar::-webkit-scrollbar-thumb {
-        background: #d32f2f;
-        border-radius: 4px;
-    }
-    
-    .sidebar::-webkit-scrollbar-thumb:hover {
-        background: #ff5252;
-    }
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: #d32f2f;
+    border-radius: 4px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #ff5252;
+}
 </style>
 </head>
 <body>
 
+<!-- =========================
+ SIDEBAR MENU
+========================= -->
 <div class="sidebar">
     <h3>⚡ Fandom</h3>
 
     <div class="accordion" id="sidebarAccordion">
-      
+
+        <!-- Home -->
         <div class="accordion-item bg-transparent border-0">
             <h2 class="accordion-header" id="headingHome">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHome" aria-expanded="true">
@@ -390,9 +370,10 @@
             </div>
         </div>
 
+        <!-- Series -->
         <div class="accordion-item bg-transparent border-0">
             <h2 class="accordion-header" id="headingSeries">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeries" aria-expanded="false">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeries">
                     📚 Comic Series
                 </button>
             </h2>
@@ -405,9 +386,10 @@
             </div>
         </div>
 
+        <!-- Characters -->
         <div class="accordion-item bg-transparent border-0">
             <h2 class="accordion-header" id="headingCharacters">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharacters" aria-expanded="false">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharacters">
                     👥 Characters
                 </button>
             </h2>
@@ -423,9 +405,10 @@
             </div>
         </div>
 
+        <!-- Fan Art -->
         <div class="accordion-item bg-transparent border-0">
             <h2 class="accordion-header" id="headingFanArt">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFanArt" aria-expanded="false">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFanArt">
                     🎨 Fan Art
                 </button>
             </h2>
@@ -436,9 +419,10 @@
             </div>
         </div>
 
+        <!-- News -->
         <div class="accordion-item bg-transparent border-0">
             <h2 class="accordion-header" id="headingNews">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNews" aria-expanded="false">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNews">
                     📰 News & Blog
                 </button>
             </h2>
@@ -450,14 +434,20 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
+<!-- =========================
+ MAIN CONTENT / DASHBOARD
+========================= -->
 <div class="main-content">
     <h1>Dashboard</h1>
     <p>Every legend begins here. The ultimate Devil May Cry comic collection.</p>
 
     <div class="row mt-4 g-4">
+
+        <!-- Featured Comic -->
         <div class="col-lg-4 col-md-6">
             <div class="card-box">
                 <h3>⭐ Featured Comic</h3>
@@ -466,6 +456,7 @@
             </div>
         </div>
 
+        <!-- Character Spotlight -->
         <div class="col-lg-4 col-md-6">
             <div class="card-box">
                 <h3>🎭 Character Spotlight</h3>
@@ -474,6 +465,7 @@
             </div>
         </div>
 
+        <!-- Latest News -->
         <div class="col-lg-4 col-md-6">
             <div class="card-box">
                 <h3>📢 Latest News</h3>
@@ -481,16 +473,23 @@
                 <div class="bubble">Breaking News!</div>
             </div>
         </div>
+
     </div>
-    
+
+    <!-- What's Hot -->
     <div class="row mt-4 g-4">
         <div class="col-12">
             <div class="card-box">
                 <h3>🔥 What's Hot</h3>
-                <p>The DMC universe continues to expand with incredible storytelling and breathtaking artwork. Join our community of fans discussing theories, sharing fan art, and celebrating everything Devil May Cry. Whether you're a veteran devil hunter or just starting your journey, there's something here for everyone!</p>
+                <p>
+                    The DMC universe continues to expand with incredible storytelling and breathtaking artwork.
+                    Join our community of fans discussing theories, sharing fan art, and celebrating everything Devil May Cry.
+                    Whether you're a veteran devil hunter or just starting your journey, there's something here for everyone!
+                </p>
             </div>
         </div>
     </div>
+
 </div>
 
 <script src="js/bootstrap.min.js"></script>
